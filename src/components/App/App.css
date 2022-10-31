@@ -1,0 +1,9 @@
+.page {
+  width: 100%;
+  min-width: 320px;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  color: #000;
+  user-select: none;
+}
