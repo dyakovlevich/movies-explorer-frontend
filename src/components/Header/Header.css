@@ -1,0 +1,239 @@
+.header_dark {
+  background-color: #DDDEE3;
+}
+
+.header__container {
+  margin: 0 auto;
+  padding: 18px 70px;
+  max-width: 1280px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo{
+  height: 38px;
+}
+
+.header-links {
+  width: 100%;
+  padding-left: 44px;
+}
+
+.auth-links__list {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  gap: 30px;
+  line-height: 0;
+}
+
+.header-links__list {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  gap: 16px;
+  align-items: center;
+}
+
+.header-links__item-link{
+  font-size: 13px;
+  line-height: 18px;
+  color: #000;
+  text-decoration: none;
+}
+.header-links__item-link.active{
+  font-weight: 500;
+}
+
+.header__link-profile{
+  background: #FAFAFA;
+  box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
+  border-radius: 40px;
+  padding: 10px 38px 10px 12px;
+  background-image: url(../../images/profile-icon.svg);
+  background-position: 73px 4px;
+  background-repeat: no-repeat;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 12px;
+  color: #000;
+  text-decoration: none;
+}
+
+
+.header-links__item:first-child {
+  display: none;
+}
+
+.header-links__item:nth-child(2) {
+  display: none;
+}
+
+.header-links__item:last-child {
+  margin-left: auto;
+}
+
+.header-links__burger-close {
+  background-color: transparent;
+  background-image: url(../../images/close.svg);
+  border: none;
+  width: 18px;
+  height: 18px;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transition: opacity 0.6s;
+}
+
+.header-links__burger {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  gap: 7px;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.header-links__burger-line {
+  background-color: #000000;
+  width: 28px;
+  height: 3px;
+}
+
+.auth-links__registration {
+  align-items: center;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
+  color: #000;
+}
+
+.auth-links__login {
+  border-radius: 3px;
+  padding: 9px 20px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #3456F3;
+}
+
+@media screen and (max-width: 768px) {
+  .header__container {
+    padding: 18px 30px;
+  }
+  .header-links__burger {
+    display: flex;
+    margin-left: auto;
+  }
+  .header-links__list:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    transform: translateX(-520px);
+    background: #000000;
+    opacity: 0.3;
+  }
+  .header-links__list {
+    position: fixed;
+    padding: 30px;
+    content: "";
+    top: 0;
+    right: 0;
+    width: 520px;
+    height: 100vh;
+    background-color: #FAFAFA;
+    display: none;
+    flex-direction: column;
+    box-sizing: border-box;
+    z-index: 1;
+    gap: 28px;
+  }
+  .header-links__item:nth-child(2) {
+    display: block;
+  }
+  .header-links__item:first-child {
+    display: block;
+  }
+  .header-links__burger-close {
+    margin-left: auto;
+  }
+  .header-links__item:first-child{
+    margin-left: auto;
+    margin-bottom: 84px;
+  }
+  .header-links__item-link{
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+  }
+  .header-links__item-link.active {
+    border-bottom: 2px solid #000;
+    padding-bottom: 3px;
+  }
+  .header-links__item:last-child {
+    margin-left: unset;
+    margin-top: auto;
+    margin-bottom: 90px;
+  }
+}
+@media screen and (max-width: 520px) {
+  .header-links__list {
+    width: 100%;
+  }
+  .header-links__list:before {
+    display: none;
+  }
+  .header-links__burger {
+    width: 40px;
+    height: 40px;
+    gap: 6.5px;
+  }
+  .header-links__burger-line {
+    width: 22px;
+    height: 2.5px;
+  }
+  .header__container {
+    padding: 17px 14px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .header-links__list {
+    padding: 20px;
+    gap: 25px;
+  }
+  .header-links__item:first-child {
+    margin-bottom: 80px;
+  }
+  .header-links__item-link.active {
+    border-bottom: 2px solid #000;
+    padding-bottom: 6px;
+  }
+  .auth-links__list{
+    gap: 14px;
+  }
+  .auth-links__registration {
+    font-size: 10px;
+    line-height: 16px;
+  }
+  .auth-links__login {
+    border-radius: 3px;
+    padding: 7px 12px;
+    font-size: 10px;
+    line-height: 16px;
+  }
+}

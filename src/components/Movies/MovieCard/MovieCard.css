@@ -1,0 +1,89 @@
+.card {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 34px;
+  grid-template-areas:
+    "img img"
+    "title button"
+    "duration duration";
+  align-items: center;
+  justify-items: start;
+  overflow: hidden;
+  position: relative;
+}
+
+.card__img {
+  grid-area: img;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  height: 151px;
+  padding-bottom: 12px;
+}
+
+.card__title {
+  grid-area: title;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  margin: 0;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  box-sizing: border-box;
+}
+
+.card__button {
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
+  border: 0;
+  padding: 0;
+  grid-area: button;
+  background: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.card__remove:hover {
+  background-image: url(../../../images/movieremove.svg);
+}
+
+.card__like{
+  background-image: url(../../../images/movielike.svg);
+}
+
+.card__like.card__like-active {
+  background-image: url(../../../images/movielikeactive.svg);
+}
+
+
+.card__duration {
+  width: 100%;
+  grid-area: duration;
+  font-size: 11px;
+  line-height: 13px;
+  color: #A0A0A0;
+  padding-top: 6px;
+  border-top: 1px solid #E8E8E8;
+  margin: 25px 0 10px;
+}
+
+@media screen and (max-width: 1024px) {
+  .card__img {
+    height: 180px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card__img {
+    height: 190px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .card__img {
+    height: 168px;
+  }
+}
