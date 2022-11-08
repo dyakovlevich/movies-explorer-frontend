@@ -71,7 +71,6 @@ function App() {
   function handleRegisterSubmit(name, email, password) {
     register(name, email, password)
       .then((res) => {
-        console.log(res);
         handleLoginSubmit(email, password);
       })
       .catch((err) => {

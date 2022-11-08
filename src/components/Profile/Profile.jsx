@@ -43,7 +43,6 @@ function Profile({ onSignOut, isAuth, onSetCurrentUserData }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("submit");
     updateUser( userName, userEmail )
       .then((res) => {
         onSetCurrentUserData(res);
