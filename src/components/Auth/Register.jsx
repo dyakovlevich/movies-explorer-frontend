@@ -1,16 +1,78 @@
-//import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { emailPattern, namePattern } from '../../utils/const';
+import { errorNameText, errorEmailText, errorPasswordText } from '../../utils/errors';
 import logo from "../../images/logo_header.svg";
 import Input from "./Input/Input";
 import './Auth.css';
 
-function Register() {
+function Register({onRegister, signinPageUrl}) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorName, setErrorName] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
+  const [submitDisabled, setSubmitDisabled] = useState(true);
   
-  const handleChange = (e) => {
+  useEffect(() => {
+    if ( errorName || errorEmail || errorPassword ) {
+      setSubmitDisabled(true);
+    } else {
+      setSubmitDisabled(false);
+    }
+  }, [ errorName, errorEmail, errorPassword]);
+  
+  function handleChangeName(e) {
+    setName(e.target.value);
+    validationName(e.target.value);
+  }
+  
+  function handleChangeEmail(e) {
+    setEmail(e.target.value);
+    validationEmail(e.target.value);
+  }
+  
+  function handleChangePassword(e) {
+    setPassword(e.target.value);
+    validationPassword(e.target.value);
+  }
+  
+  const validationName = (val) => {
+    if (val.length < 2 || val.length > 30 || !namePattern.test(val)) {
+      setErrorName(errorNameText);
+    } else {
+      setErrorName("");
+    }
   };
   
-  const handleSubmit = (e) => {
+  const validationEmail = (val) => {
+    if (!emailPattern.test(val)) {
+      setErrorEmail(errorEmailText);
+    } else {
+      setErrorEmail("");
+    }
+  };
+  
+  const validationPassword = (val) => {
+    if (val.length < 1) {
+      setErrorPassword(errorPasswordText);
+    } else {
+      setErrorPassword("");
+    }
+  };
+  
+  function handleSubmit(e) {
     e.preventDefault();
+    if (name.length < 2 || name.length > 30 || !namePattern.test(name)) {
+      setErrorName(errorNameText);
+    } else if(!emailPattern.test(email)){
+      setErrorEmail(errorEmailText);
+    } else if (password.length < 1){
+      setErrorPassword(errorPasswordText);
+    } else {
+      onRegister(name, email, password);
+    }
   };
 
   return (
@@ -25,26 +87,31 @@ function Register() {
             type="text"
             name="name"
             title="Имя"
-            onChange={handleChange}
+            onChange={handleChangeName}
           />
           <Input
             type="email"
             name="email"
             title="E-mail"
-            onChange={handleChange}
+            onChange={handleChangeEmail}
             placeholder="pochta@yandex.ru"
           />
           <Input
             type="password"
             name="password"
             title="Пароль"
-            onChange={handleChange}
+            onChange={handleChangePassword}
           />
+          <div className="auth__errors">
+            <span className="auth__error">{errorName}</span>
+            <span className="auth__error">{errorEmail}</span>
+            <span className="auth__error">{errorPassword}</span>
+          </div>
         </div>
-        <button className="auth__submit">Зарегистрироваться</button>
+        <button disabled={submitDisabled} className="auth__submit">Зарегистрироваться</button>
         <div className="auth__link-container">
           <p className="auth__link-description">Уже зарегистрированы?</p>
-          <Link to="/signin" className="auth__link">
+          <Link to={signinPageUrl} className="auth__link">
             Войти
           </Link>
         </div>

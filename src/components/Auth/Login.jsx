@@ -1,16 +1,61 @@
-//import { useState } from "react";
+import { useState, useEffect } from "react";
+import { emailPattern } from '../../utils/const';
+import { errorEmailText, errorPasswordText } from '../../utils/errors';
 import { Link } from "react-router-dom";
 import logo from "../../images/logo_header.svg";
 import Input from "./Input/Input";
 import './Auth.css';
 
-function Login() {
+function Login({onLogin, signupPageUrl}) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
+  const [submitDisabled, setSubmitDisabled] = useState(true);
   
-  const handleChange = (e) => {
+  useEffect(() => {
+    if ( errorEmail || errorPassword ) {
+      setSubmitDisabled(true);
+    } else {
+      setSubmitDisabled(false);
+    }
+  }, [ errorEmail, errorPassword]);
+  
+  function handleChangeEmail(e) {
+    setEmail(e.target.value);
+    validationEmail(e.target.value);
+  }
+  
+  function handleChangePassword(e) {
+    setPassword(e.target.value);
+    validationPassword(e.target.value);
+  }
+  
+  const validationEmail = (val) => {
+    if (!emailPattern.test(val)) {
+      setErrorEmail(errorEmailText);
+    } else {
+      setErrorEmail("");
+    }
+  };
+  
+  const validationPassword = (val) => {
+    if (val.length < 1) {
+      setErrorPassword(errorPasswordText);
+    } else {
+      setErrorPassword("");
+    }
   };
   
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!emailPattern.test(email)){
+      setErrorEmail(errorEmailText);
+    } else if (password.length < 1){
+      setErrorPassword(errorPasswordText);
+    } else {
+      onLogin(email, password);
+    }
   };
 
   return (
@@ -25,20 +70,24 @@ function Login() {
             type="email"
             name="email"
             title="E-mail"
-            onChange={handleChange}
+            onChange={handleChangeEmail}
             placeholder="pochta@yandex.ru"
           />
           <Input
             type="password"
             name="password"
             title="Пароль"
-            onChange={handleChange}
+            onChange={handleChangePassword}
           />
+          <div className="auth__errors">
+            <span className="auth__error">{errorEmail}</span>
+            <span className="auth__error">{errorPassword}</span>
+          </div>
         </div>
-        <button className="auth__submit">Войти</button>
+        <button disabled={submitDisabled} className="auth__submit">Войти</button>
         <div className="auth__link-container">
           <p className="auth__link-description">Ещё не зарегистрированы?</p>
-          <Link to="/signup" className="auth__link">
+          <Link to={signupPageUrl} className="auth__link">
             Регистрация
           </Link>
         </div>

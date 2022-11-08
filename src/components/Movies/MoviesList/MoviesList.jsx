@@ -1,21 +1,18 @@
 import './MoviesList.css';
 import { useEffect, useState } from "react";
 import MovieCard from '../MovieCard/MovieCard';
-import savedMoviesArray from '../../../utils/moviessaved';
-import MoviesArray from '../../../utils/movies';
 
-function MoviesList({ saved }) {
+
+function MoviesList({ saved, allMoviesRes, savedMoviesRes, savedMovies, onLike, onDelete }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [moviesToLoad, setMoviesToLoad] = useState(0);
   const [displayedMovies, setDisplayedMovies] = useState(0);
-  const moviesList = saved? savedMoviesArray : MoviesArray;
   
   useEffect(() => {
     const handleWindowResize = () => {
       setWindowWidth(window.innerWidth);
     };
     if (!saved) {
-      console.log(windowWidth);
       if (windowWidth <= '520') {
         setDisplayedMovies(5);
         setMoviesToLoad(2);
@@ -34,22 +31,40 @@ function MoviesList({ saved }) {
     return () => {
       window.removeEventListener('resize', handleWindowResize);
     };
-  }, [windowWidth, saved]);
+  }, [windowWidth, saved, allMoviesRes]);
+  
+  
   
   function handleClickMoreMovies() {
     setDisplayedMovies(displayedMovies + moviesToLoad);
   }
 
+  
+  
+
   return (
     <div className="cards__container">
       
       <div className="cards__list">
-        {moviesList.slice(0, displayedMovies).map((movie) => (
-          <MovieCard saved={saved} movie={movie} key={movie.id} />
-        ))}
+        {!saved && allMoviesRes.slice(0, displayedMovies).map((movie) => {
+          const liked = (savedMovies.find((item) => Number(item.movieId) === ( movie.id || movie.movieId)))? true : false;
+          return (
+            <MovieCard saved={saved} movie={movie} isLiked={liked} key={movie.id || movie._id} onLike={onLike} onDelete={onDelete}/>
+          )
+        }
+        )}
+        {saved && savedMoviesRes.map((movie) => {
+          return (
+            <MovieCard saved={saved} movie={movie} key={movie.id || movie._id} onLike={onLike} onDelete={onDelete}/>
+          )
+        }
+        )}
+        {((saved && savedMoviesRes.length === 0) || (!saved && allMoviesRes.length === 0)) && (
+          <div className="cards__empty">Фильмов не найдено</div>
+        )}
       </div>
 
-      {displayedMovies < moviesList.length && (
+      {!saved && displayedMovies < allMoviesRes.length && (
         <button className="cards__more" onClick={handleClickMoreMovies}>Ещё</button>
       )}
       
