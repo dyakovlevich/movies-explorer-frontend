@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { emailPattern } from '../../utils/const';
+import { EMAILPATTERN } from '../../utils/const';
 import { errorEmailText, errorPasswordText } from '../../utils/errors';
 import { Link } from "react-router-dom";
 import logo from "../../images/logo_header.svg";
@@ -32,7 +32,7 @@ function Login({onLogin, signupPageUrl}) {
   }
   
   const validationEmail = (val) => {
-    if (!emailPattern.test(val)) {
+    if (!EMAILPATTERN.test(val)) {
       setErrorEmail(errorEmailText);
     } else {
       setErrorEmail("");
@@ -49,7 +49,7 @@ function Login({onLogin, signupPageUrl}) {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!emailPattern.test(email)){
+    if(!EMAILPATTERN.test(email)){
       setErrorEmail(errorEmailText);
     } else if (password.length < 1){
       setErrorPassword(errorPasswordText);

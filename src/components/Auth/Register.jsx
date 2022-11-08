@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { emailPattern, namePattern } from '../../utils/const';
+import { EMAILPATTERN, NAMEPATTERN } from '../../utils/const';
 import { errorNameText, errorEmailText, errorPasswordText } from '../../utils/errors';
 import logo from "../../images/logo_header.svg";
 import Input from "./Input/Input";
@@ -39,7 +39,7 @@ function Register({onRegister, signinPageUrl}) {
   }
   
   const validationName = (val) => {
-    if (val.length < 2 || val.length > 30 || !namePattern.test(val)) {
+    if (val.length < 2 || val.length > 30 || !NAMEPATTERN.test(val)) {
       setErrorName(errorNameText);
     } else {
       setErrorName("");
@@ -47,7 +47,7 @@ function Register({onRegister, signinPageUrl}) {
   };
   
   const validationEmail = (val) => {
-    if (!emailPattern.test(val)) {
+    if (!EMAILPATTERN.test(val)) {
       setErrorEmail(errorEmailText);
     } else {
       setErrorEmail("");
@@ -64,9 +64,9 @@ function Register({onRegister, signinPageUrl}) {
   
   function handleSubmit(e) {
     e.preventDefault();
-    if (name.length < 2 || name.length > 30 || !namePattern.test(name)) {
+    if (name.length < 2 || name.length > 30 || !NAMEPATTERN.test(name)) {
       setErrorName(errorNameText);
-    } else if(!emailPattern.test(email)){
+    } else if(!EMAILPATTERN.test(email)){
       setErrorEmail(errorEmailText);
     } else if (password.length < 1){
       setErrorPassword(errorPasswordText);

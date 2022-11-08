@@ -1,4 +1,4 @@
-import { moviesApi } from "../const";
+import { MOVIESAPI } from "../const";
 
 function checkResponse(res) {
   if (res.ok) {
@@ -8,7 +8,7 @@ function checkResponse(res) {
 }
 
 export const register = (name, email, password) => {
-  return fetch(`${moviesApi}/signup`, {
+  return fetch(`${MOVIESAPI}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export const register = (name, email, password) => {
 };
 
 export const login = (email, password) => {
-  return fetch(`${moviesApi}/signin`, {
+  return fetch(`${MOVIESAPI}/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -39,7 +39,7 @@ export const login = (email, password) => {
 };
 
 export const updateUser = (name, email) => {
-  return fetch(`${moviesApi}/users/me`, {
+  return fetch(`${MOVIESAPI}/users/me`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export const updateUser = (name, email) => {
 };
 
 export const likeMovie = (movie) => {
-  return fetch(`${moviesApi}/movies`, {
+  return fetch(`${MOVIESAPI}/movies`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -78,7 +78,7 @@ export const likeMovie = (movie) => {
 };
 
 export const deleteMovie = (_id) => {
-  return fetch(`${moviesApi}/movies/${_id}`, {
+  return fetch(`${MOVIESAPI}/movies/${_id}`, {
     method: "DELETE",
     credentials: "include",
     headers: {
@@ -89,7 +89,7 @@ export const deleteMovie = (_id) => {
 };
 
 export const getMovies = () => {
-  return fetch(`${moviesApi}/movies`, {
+  return fetch(`${MOVIESAPI}/movies`, {
     method: "GET",
     credentials: "include",
     headers: {
@@ -100,7 +100,7 @@ export const getMovies = () => {
 };
 
 export const signOut = () => {
-  return fetch(`${moviesApi}/signout`, {
+  return fetch(`${MOVIESAPI}/signout`, {
     method: "DELETE",
     credentials: "include",
   })
@@ -108,7 +108,7 @@ export const signOut = () => {
 };
 
 export const checkToken = () => {
-  return fetch(`${moviesApi}/users/me`, {
+  return fetch(`${MOVIESAPI}/users/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

@@ -1,5 +1,5 @@
 import Header from '../Header/Header';
-import { emailPattern, namePattern } from '../../utils/const';
+import { EMAILPATTERN, NAMEPATTERN } from '../../utils/const';
 import { errorNameText, errorEmailText } from '../../utils/errors';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useState, useEffect, useContext } from "react";
@@ -56,7 +56,7 @@ function Profile({ onSignOut, isAuth, onSetCurrentUserData }) {
   }
   
   const validationEmail = (val) => {
-    if (!emailPattern.test(val)) {
+    if (!EMAILPATTERN.test(val)) {
       setErrorEmail(errorEmailText);
     } else {
       setErrorEmail("");
@@ -64,7 +64,7 @@ function Profile({ onSignOut, isAuth, onSetCurrentUserData }) {
   };
   
   const validationName = (val) => {
-    if (val.length < 2 || val.length > 30 || !namePattern.test(val)) {
+    if (val.length < 2 || val.length > 30 || !NAMEPATTERN.test(val)) {
       setErrorName(errorNameText);
     } else {
       setErrorName("");
