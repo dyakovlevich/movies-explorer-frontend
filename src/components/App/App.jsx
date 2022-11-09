@@ -37,6 +37,11 @@ function App() {
       })
       .catch((err) => {
         setIsLoggedIn(false);
+        localStorage.removeItem("allMovies");
+        localStorage.removeItem("allMoviesResult");
+        localStorage.removeItem("savedMovies");
+        localStorage.removeItem("phrase");
+        localStorage.removeItem("short");
         if (err === '400') {
           console.log("400 — Токен не передан или передан не в том формате");
         }
@@ -44,7 +49,6 @@ function App() {
           console.log("401 — Переданный токен некорректен");
         }
       });
-    
   }, [isLoggedIn]);
   
   //Авторизация
@@ -52,7 +56,6 @@ function App() {
     login(email, password)
       .then((res) => {
         setIsLoggedIn(true);
-        //setEmail(email);
         history("/movies");
       })
       .catch((err) => {
@@ -62,8 +65,6 @@ function App() {
         else if (err === '401') {
           console.log("401 - пользователь с email не найден");
         }
-        //setIsInfoTooltipOpen(true);
-        //setIsSuccess(false);
       });
   }  
   
@@ -90,20 +91,11 @@ function App() {
     signOut()
       .then(() => {
         setIsLoggedIn(false);
-        localStorage.removeItem("allMovies");
-        localStorage.removeItem("allMoviesResult");
-        localStorage.removeItem("savedMovies");
-        localStorage.removeItem("savedMoviesResult");
-        localStorage.removeItem("phrase");
-        localStorage.removeItem("savedPhrase");
-        localStorage.removeItem("short");
-        localStorage.removeItem("savedShort");
-        history("/");
       })
       .catch((err) => {
         console.log(`Ошибка при выходе. ${err}`);
       })    
-  }
+  } 
   
   return (
     <CurrentUserContext.Provider value={currentUser}>

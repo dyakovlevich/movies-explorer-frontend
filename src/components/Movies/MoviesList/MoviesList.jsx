@@ -1,6 +1,19 @@
 import './MoviesList.css';
 import { useEffect, useState } from "react";
 import MovieCard from '../MovieCard/MovieCard';
+import { 
+  SM_BREAKPOINT,
+  SM_DISPLAYED,
+  SM_TO_LOAD,
+  MD_BREAKPOINT,
+  MD_DISPLAYED,
+  MD_TO_LOAD,
+  LG_BREAKPOINT,
+  LG_DISPLAYED,
+  LG_TO_LOAD,
+  XL_DISPLAYED,
+  XL_TO_LOAD,
+  } from '../../../utils/const';
 
 
 function MoviesList({ saved, allMoviesRes, savedMoviesRes, savedMovies, onLike, onDelete }) {
@@ -13,18 +26,18 @@ function MoviesList({ saved, allMoviesRes, savedMoviesRes, savedMovies, onLike, 
       setWindowWidth(window.innerWidth);
     };
     if (!saved) {
-      if (windowWidth <= '520') {
-        setDisplayedMovies(5);
-        setMoviesToLoad(2);
-      } else if (windowWidth <= '768') {
-        setDisplayedMovies(8);
-        setMoviesToLoad(2);
-      } else if (windowWidth <= '1024') {
-        setDisplayedMovies(12);
-        setMoviesToLoad(3);
+      if (windowWidth <= SM_BREAKPOINT) {
+        setDisplayedMovies(SM_DISPLAYED);
+        setMoviesToLoad(SM_TO_LOAD);
+      } else if (windowWidth <= MD_BREAKPOINT) {
+        setDisplayedMovies(MD_DISPLAYED);
+        setMoviesToLoad(MD_TO_LOAD);
+      } else if (windowWidth <= LG_BREAKPOINT) {
+        setDisplayedMovies(LG_DISPLAYED);
+        setMoviesToLoad(LG_TO_LOAD);
       } else {
-        setDisplayedMovies(16);
-        setMoviesToLoad(4);
+        setDisplayedMovies(XL_DISPLAYED);
+        setMoviesToLoad(XL_TO_LOAD);
       };
     };
     window.addEventListener('resize', handleWindowResize);

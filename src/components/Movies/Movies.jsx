@@ -56,39 +56,27 @@ function Movies({saved, isAuth, movies}) {
       if (localStorage.getItem("phrase")) {
         setPhrase(localStorage.getItem("phrase"));
       }
-      if (localStorage.getItem("savedPhrase")) {
-        setSavedPhrase(localStorage.getItem("savedPhrase"));
-      }
       if (localStorage.getItem("short")) {
         setShort(localStorage.getItem("short") === "true");
-      }
-      if (localStorage.getItem("savedShort")) {
-        setSavedShort(localStorage.getItem("savedShort") === "true");
       }
       if (localStorage.getItem("allMoviesResult")) {
         setAllMoviesResult(JSON.parse(localStorage.getItem("allMoviesResult")));
       }
-      if (localStorage.getItem("savedMoviesResult")) {
-        setSavedMoviesResult(JSON.parse(localStorage.getItem("savedMoviesResult")));
-      }
-      setShowPreloader(false);
+      setTimeout(() => {
+        setShowPreloader(false);
+      }, 500);
     }
   }, [isAuth, currentUser._id]);
   
   useEffect(() => {
-    setShowPreloader(true);
     const searchMoviesResult = searchMovies(savedMovies, savedPhrase, savedShort);
     setSavedMoviesResult(searchMoviesResult);
-    localStorage.setItem("savedMoviesResult", JSON.stringify(searchMoviesResult));
-    setShowPreloader(false);
   }, [savedMovies, savedPhrase, savedShort]);
 
   useEffect(() => {
-      setShowPreloader(true);
       const searchMoviesResult = searchMovies(allMovies, phrase, short);
       setAllMoviesResult(searchMoviesResult);
       localStorage.setItem("allMoviesResult", JSON.stringify(searchMoviesResult));
-      setShowPreloader(false);
   }, [allMovies, phrase, short]);
   
   function handleLike(movie) {
@@ -99,6 +87,8 @@ function Movies({saved, isAuth, movies}) {
           JSON.stringify([res.movie, ...savedMovies])
         );
         setSavedMovies([res.movie, ...savedMovies]);
+        setSavedPhrase("");
+        setSavedShort("");
       })
       .catch((err) => console.log(err));
   };
@@ -127,7 +117,6 @@ function Movies({saved, isAuth, movies}) {
   function handleShortToggle(val) {
     if(saved){
       setSavedShort(val.target.checked);
-      localStorage.setItem("savedShort", val.target.checked);
     } else {
       setShort(val.target.checked);
       localStorage.setItem("short", val.target.checked);
@@ -145,7 +134,6 @@ function Movies({saved, isAuth, movies}) {
   function handleSubmitSearch(phrase) {
     if(saved){
       setSavedPhrase(phrase);
-      localStorage.setItem("savedPhrase", phrase);
     } else {
       setPhrase(phrase);
       localStorage.setItem("phrase", phrase);
