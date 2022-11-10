@@ -6,7 +6,7 @@ import logo from "../../images/logo_header.svg";
 import Input from "./Input/Input";
 import './Auth.css';
 
-function Register({onRegister, signinPageUrl}) {
+function Register({onRegister, signinPageUrl, error, setError}) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,16 +26,19 @@ function Register({onRegister, signinPageUrl}) {
   function handleChangeName(e) {
     setName(e.target.value);
     validationName(e.target.value);
+    setError("");
   }
   
   function handleChangeEmail(e) {
     setEmail(e.target.value);
     validationEmail(e.target.value);
+    setError("");
   }
   
   function handleChangePassword(e) {
     setPassword(e.target.value);
     validationPassword(e.target.value);
+    setError("");
   }
   
   const validationName = (val) => {
@@ -106,6 +109,7 @@ function Register({onRegister, signinPageUrl}) {
             <span className="auth__error">{errorName}</span>
             <span className="auth__error">{errorEmail}</span>
             <span className="auth__error">{errorPassword}</span>
+            <span className="auth__error">{error}</span>
           </div>
         </div>
         <button disabled={submitDisabled} className="auth__submit">Зарегистрироваться</button>

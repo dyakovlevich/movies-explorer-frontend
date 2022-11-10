@@ -7,7 +7,7 @@ import { useEffect, useState, useContext } from "react";
 import { moviesApi } from '../../utils/api/MoviesApi';
 import { likeMovie, getMovies, deleteMovie } from '../../utils/api/MainApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-
+import { SHOT_MOVIE_LONG } from '../../utils/const';
 
 function Movies({saved, isAuth, movies}) {
   const currentUser = useContext(CurrentUserContext);
@@ -126,7 +126,7 @@ function Movies({saved, isAuth, movies}) {
   function searchMovies(dataMovies = [], request = "", short = false) {
     let arrMovies = dataMovies ? Array.from(dataMovies) : [];
     if (short) {
-      arrMovies = arrMovies.filter((item) => item.duration < 41);
+      arrMovies = arrMovies.filter((item) => item.duration < SHOT_MOVIE_LONG);
     }
     return arrMovies.filter((item) => item.nameRU.toLowerCase().includes(request.toLowerCase()));
   };

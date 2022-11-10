@@ -20,6 +20,7 @@ function App() {
   
   //User logged
   const [isLoggedIn, setIsLoggedIn] = useState(undefined);
+  const [error, setError] = useState("");
   
   //Path
   const signupPageUrl = '/signup';
@@ -37,6 +38,7 @@ function App() {
       })
       .catch((err) => {
         setIsLoggedIn(false);
+        setCurrentUser({});
         localStorage.removeItem("allMovies");
         localStorage.removeItem("allMoviesResult");
         localStorage.removeItem("savedMovies");
@@ -51,6 +53,10 @@ function App() {
       });
   }, [isLoggedIn]);
   
+  useEffect(() => {
+    setError("");
+  }, [history]);
+  
   //Авторизация
   function handleLoginSubmit(email, password) {
     login(email, password)
@@ -60,10 +66,10 @@ function App() {
       })
       .catch((err) => {
         if (err === '400') {
-          console.log("400 - не передано одно из полей");
+          setError("Не передано одно из полей");
         } 
         else if (err === '401') {
-          console.log("401 - пользователь с email не найден");
+          setError("Пользователь не найден");
         }
       });
   }  
@@ -76,7 +82,7 @@ function App() {
       })
       .catch((err) => {
         if (err === '400') {
-          console.log("400 - некорректно заполнено одно из полей");
+          setError("Некорректно заполнено одно из полей");
         }
       });
   }
@@ -91,6 +97,7 @@ function App() {
     signOut()
       .then(() => {
         setIsLoggedIn(false);
+        history("/");
       })
       .catch((err) => {
         console.log(`Ошибка при выходе. ${err}`);
@@ -133,11 +140,23 @@ function App() {
           />
           <Route 
             path={signupPageUrl} 
-            element={isLoggedIn? (<Navigate to={mainPageUrl} />) : (<RegistrationPage onRegister={handleRegisterSubmit} signinPageUrl={signinPageUrl} />)}
+            element={isLoggedIn? (<Navigate to={mainPageUrl} />) : (
+              <RegistrationPage 
+                onRegister={handleRegisterSubmit} 
+                signinPageUrl={signinPageUrl} 
+                error={error}
+                setError={setError}
+              />)}
            />
           <Route 
             path={signinPageUrl} 
-            element={isLoggedIn? (<Navigate to={mainPageUrl} />) : (<LoginPage onLogin={handleLoginSubmit} signupPageUrl={signupPageUrl} />)} 
+            element={isLoggedIn? (<Navigate to={mainPageUrl} />) : (
+              <LoginPage 
+                onLogin={handleLoginSubmit} 
+                signupPageUrl={signupPageUrl}
+                error={error}
+                setError={setError} 
+              />)} 
           />
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -6,7 +6,7 @@ import logo from "../../images/logo_header.svg";
 import Input from "./Input/Input";
 import './Auth.css';
 
-function Login({onLogin, signupPageUrl}) {
+function Login({onLogin, signupPageUrl, error, setError }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorEmail, setErrorEmail] = useState("");
@@ -24,11 +24,13 @@ function Login({onLogin, signupPageUrl}) {
   function handleChangeEmail(e) {
     setEmail(e.target.value);
     validationEmail(e.target.value);
+    setError("");
   }
   
   function handleChangePassword(e) {
     setPassword(e.target.value);
     validationPassword(e.target.value);
+    setError("");
   }
   
   const validationEmail = (val) => {
@@ -82,6 +84,7 @@ function Login({onLogin, signupPageUrl}) {
           <div className="auth__errors">
             <span className="auth__error">{errorEmail}</span>
             <span className="auth__error">{errorPassword}</span>
+            <span className="auth__error">{error}</span>
           </div>
         </div>
         <button disabled={submitDisabled} className="auth__submit">Войти</button>

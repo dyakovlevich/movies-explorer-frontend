@@ -15,3 +15,5 @@ export const LG_DISPLAYED = 12;
 export const LG_TO_LOAD = 3;
 export const XL_DISPLAYED = 16;
 export const XL_TO_LOAD = 4;
+
+export const SHOT_MOVIE_LONG = 41;
