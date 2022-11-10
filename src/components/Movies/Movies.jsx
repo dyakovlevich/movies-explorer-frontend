@@ -4,12 +4,14 @@ import Search from './Search/Search';
 import Preloader from '../Preloader/Preloader';
 import MoviesList from './MoviesList/MoviesList';
 import { useEffect, useState, useContext } from "react";
+import { useNavigate} from 'react-router-dom';
 import { moviesApi } from '../../utils/api/MoviesApi';
 import { likeMovie, getMovies, deleteMovie } from '../../utils/api/MainApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { SHOT_MOVIE_LONG } from '../../utils/const';
 
 function Movies({saved, isAuth, movies}) {
+  const history = useNavigate();
   const currentUser = useContext(CurrentUserContext);
   const [allMovies, setAllMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
@@ -69,6 +71,11 @@ function Movies({saved, isAuth, movies}) {
   }, [isAuth, currentUser._id]);
   
   useEffect(() => {
+    setSavedPhrase("");
+    setSavedShort(false);
+  }, [history]);
+  
+  useEffect(() => {
     const searchMoviesResult = searchMovies(savedMovies, savedPhrase, savedShort);
     setSavedMoviesResult(searchMoviesResult);
   }, [savedMovies, savedPhrase, savedShort]);
@@ -87,8 +94,6 @@ function Movies({saved, isAuth, movies}) {
           JSON.stringify([res.movie, ...savedMovies])
         );
         setSavedMovies([res.movie, ...savedMovies]);
-        setSavedPhrase("");
-        setSavedShort("");
       })
       .catch((err) => console.log(err));
   };
