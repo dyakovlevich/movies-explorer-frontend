@@ -26,7 +26,7 @@ function Movies({saved, isAuth, movies}) {
   const [showPreloader, setShowPreloader] = useState(false);
 
   useEffect(() => {
-    if (isAuth) {
+    if (currentUser._id !== undefined) {
       setShowPreloader(true);
       if (localStorage.getItem("allMovies")) {
         setAllMovies(JSON.parse(localStorage.getItem("allMovies")));
@@ -68,7 +68,7 @@ function Movies({saved, isAuth, movies}) {
         setShowPreloader(false);
       }, 500);
     }
-  }, [isAuth, currentUser._id]);
+  }, [currentUser]);
   
   useEffect(() => {
     setSavedPhrase("");
