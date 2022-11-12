@@ -5,20 +5,12 @@ import Techs from './Techs/Techs';
 import AboutMe from './AboutMe/AboutMe';
 import Portfolio from './Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
-/* import Header from '../Header/Header';
-import MainHeader from '../Header/MainHeader/MainHeader';
-import Promo from '../Main/Promo/Promo';
-import NavTab from '../Main/NavTab/NavTab'; */
 
-function Main() {
+
+function Main({isAuth}) {
   return (
     <main className='landing'>
-      {/* <Header
-        color={'header__theme_blue'}
-        location={'header__container_landing'}
-      >
-        <MainHeader />*/}
-      <Header />
+      <Header isAuth = {isAuth} />
       <Promo />
       <AboutProject />
       <Techs />

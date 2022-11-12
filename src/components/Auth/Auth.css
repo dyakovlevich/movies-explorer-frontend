@@ -19,15 +19,26 @@
 }
 
 .auth__input-container{
-  min-height: 266px;
+  min-height: 335px;
   display: flex;
   gap: 20px;
   flex-direction: column;
   text-align: left;
 }
 
+.auth__error {
+  font-size: 11px;
+  line-height: 13px;
+  color: #EE3465;
+}
+
+.auth__errors{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
 .auth__submit{
-  margin-top: 69px;
   width: 100%;
   font-weight: 500;
   font-size: 14px;
@@ -37,6 +48,12 @@
   border-radius: 3px;
   border: none;
   color: #FFFFFF;
+}
+
+.auth__submit:disabled,
+.auth__submit[disabled]{
+  background-color: #cccccc;
+  color: #666666;
 }
 
 .auth__submit:hover {
